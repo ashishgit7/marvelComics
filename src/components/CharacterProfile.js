@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import MD5 from "crypto-js/md5"
 import axios from 'axios';
 import Loader from './Loader';
 import Character from './Character';
@@ -9,10 +8,9 @@ import { getHash } from '../utils/utils';
 
 const CharacterProfile = ({ Id,charactersFilter }) => {
     const [toggle, setToggle] = useState(true) // for toggling characters inclusion and exclusion
-
     const handleEvent = ()=>{
         setToggle(!toggle)
-        charactersFilter(data.data.data.results[0].id)
+        charactersFilter(data.data.data.results[0].id,data.data.data.results[0].name)
     }
 
     const getURL=()=>{
@@ -30,11 +28,16 @@ const CharacterProfile = ({ Id,charactersFilter }) => {
         return axios.get(url)
     }
     
-    const { isLoading, data } = useQuery([`marvel${Id}`], fetchData) //fetching marvel character data 
+    const { isLoading,isError, data } = useQuery([`marvel${Id}`], fetchData) //fetching marvel character data 
 
     if(isLoading)
     return (<Loader/>)
 
+    else if(isError){
+        return (
+        <div className='text-center'>System error</div>
+        )
+    }
     else
     return (
         <Character handleEvent={handleEvent} hero = {data.data.data.results[0]} toggle = {toggle}/>

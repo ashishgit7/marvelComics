@@ -53,12 +53,12 @@ describe("Comic data",()=>{
     }, "title": '4', "issueNumber": 4
   },
 ]
-  it("is comic div rendered",()=>{
+  it("is comic card rendered",()=>{
     render(<ComicProfile data={data} />)
     const comic = screen.getAllByTitle("comicInfo")
     expect(comic[0]).toBeInTheDocument()
   })
-  it("number of comic displayed",()=>{
+  it("number of comics displayed",()=>{
     render(<ComicProfile data={data} />)
     const comic = screen.getAllByTitle('comicInfo')
     expect(comic.length).toBe(4)
@@ -74,4 +74,10 @@ it("is character redereing",()=>{
   const character = screen.getByTitle('hero')
   expect(character).toBeInTheDocument()
 
+})
+
+it("navbar title image",()=>{
+  render(<Navbar/>)
+  const titleImage = screen.getByRole('img')
+  expect(titleImage).toBeInTheDocument();
 })

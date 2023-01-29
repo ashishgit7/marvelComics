@@ -2,7 +2,7 @@ import React from 'react'
 
 const ComicProfile = ({ data }) => {
     return (
-        <div className='grid grid-cols-5 gap-2 px-20 mb-5 '>
+        <div className='grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-2 lg:px-20 md:px-10 mb-5 '>
             {data.map(comic => (
                 <div className='basis-3/12 h-full' key={comic.id} title="comicInfo">
                     <div className='max-w-[15rem] h-full rounded overflow-hidden shadow-lg m-auto'>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { useQuery } from 'react-query';
@@ -9,7 +9,7 @@ import {getHash} from '../utils/utils'
  
 
 
-export const ComicBoard = ({ ids, title }) => {
+export const ComicBoard = ({ ids, title, heroName }) => {
     const [offset, setOffset] = useState(0)
     let API_URL = process.env.REACT_APP_API_URL
     let heroUrl = `${API_URL}/v1/public/comics`;
@@ -38,13 +38,12 @@ export const ComicBoard = ({ ids, title }) => {
         return tempURL
     }
     
-
     const fetchData = () => {
         var url = getURL()
         return axios.get(url)
     }
     
-    const { isLoading, data } = useQuery(['marvel', ids, title, offset], fetchData) // fetching comics
+    const { isLoading,isError, data } = useQuery(['marvel', ids, title, offset], fetchData) // fetching comics
     
     const getPageCount = () =>{
         var tot = data.data.data.total
@@ -62,20 +61,34 @@ export const ComicBoard = ({ ids, title }) => {
             <Loader/>
         )
     }
-    
+    else if(isError){
+        return (
+        <div className='text-center'>System error</div>
+        )
+    }
+    else
     return (
         <div className='p-8 bg-slate-900'>
+            <div className='flex justify-between mx-8 my-4 '>
+                <div className='flex text-white gap-2'>
+                    {heroName.length>0 && <p>Explore - </p>}
+                    {heroName.map((name)=>{
+                       return <p>{name} , </p>
+                    })}
+                </div>
+            <button onClick={()=> window.location.reload(false)} className='bg-white px-2 rounded-sm'> Clear All filter</button>
+            </div>
             <ComicProfile data = {data.data.data.results}/>
             <ReactPaginate
                 breakLabel="..."
-                nextLabel="next >"
+                nextLabel=" >"
                 onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
+                pageRangeDisplayed={3}
                 pageCount={getPageCount()}
-                previousLabel="< previous"
+                previousLabel="< "
                 renderOnZeroPageCount={null}
                 forcePage = {offset/20 }
-                containerClassName={"pagination justify-content-center"}
+                containerClassName={"px-2 pagination justify-content-center"}
                 pageClassName={"page-item"}
                 pageLinkClassName={"page-link"}
                 previousClassName={"page-item"}
