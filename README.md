@@ -1,9 +1,9 @@
 # Getting Started with Marvel Comics React App
 
-To start the project first install node module using below command
+To start the project first install node module using command
 `npm install`
-Now use below command to start
-`npm run start`
+. After installing module use `npm run start` command to start
+
 
 ### `npm test`
 
