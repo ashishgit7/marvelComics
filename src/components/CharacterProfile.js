@@ -35,7 +35,7 @@ const CharacterProfile = ({ Id,charactersFilter }) => {
 
     else if(isError){
         return (
-        <div className='text-center'>System error</div>
+        <div className='text-center'>System error (may be due to API Limit Reached)</div>
         )
     }
     else
