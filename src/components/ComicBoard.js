@@ -20,7 +20,7 @@ export const ComicBoard = ({ ids, title, heroName }) => {
 
     let hash = getHash(ts, privateKey, apiKey);
     const getURL = () => {
-        var tempURL = `${heroUrl}?ts=${ts}&apikey=${apiKey}&hash=${hash}`
+        var tempURL = `${heroUrl}?orderBy=-focDate&limit=20&ts=${ts}&apikey=${apiKey}&hash=${hash}`
         
         // if marvel heroes are selected
         if (ids.length != 0) {

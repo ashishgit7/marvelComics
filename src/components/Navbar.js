@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navbar = ({handleChange,title}) => {
     return (
         <>
+            <Link to="/">
             <div className='h-14 w-full bg-red-600 flex justify-around items-center'>
                 <div>
                     <img className="w-16" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Marvel_Logo.svg/1200px-Marvel_Logo.svg.png"></img>
@@ -16,6 +18,7 @@ const Navbar = ({handleChange,title}) => {
                         value={title} />
                 </div>
             </div>
+            </Link>
         </>
     )
 }
